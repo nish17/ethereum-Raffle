@@ -1,6 +1,6 @@
 pragma solidity^0.4.24;
 
-contract Lottery{
+contract Raffle{
     address public manager;
     address[] public players;
     
