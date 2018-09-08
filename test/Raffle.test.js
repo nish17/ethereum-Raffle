@@ -76,4 +76,18 @@ describe("Lottery Contract", () => {
       assert(e);
     }
   });
+
+  it("does the whole process", async () => {
+    await raffle.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei("2", "ether")
+    });
+
+    const initialBalance = await web3.eth.getBalance(accounts[0]);
+    await raffle.methods.pickWinner().send({ from: accounts[0] });
+    const finalBalance = await web3.eth.getBalance(accounts[0]);
+    const difference = finalBalance - initialBalance;
+
+    assert(difference > web3.utils.toWei("1.8", "ether"));
+  });
 });
