@@ -54,4 +54,26 @@ describe("Lottery Contract", () => {
     assert.equal(accounts[2], players[2]);
     assert.equal(3, players.length);
   });
+
+  it("should pay entry fee", async () => {
+    try {
+      await raffle.methods.enter().send({
+        from: accounts[0],
+        value: web3.utils.toWei("0.01", "ether")
+      });
+      assert(false);
+    } catch (e) {
+      assert(e);
+    }
+  });
+  it("manager can only pick the winner", async () => {
+    try {
+      await raffle.methods.pickWinner().send({
+        from: accounts[1]
+      });
+      assert(false);
+    } catch (e) {
+      assert(e);
+    }
+  });
 });
